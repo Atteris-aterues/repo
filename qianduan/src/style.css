@@ -1,0 +1,125 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+* {
+  font-family: 'Noto Sans SC', sans-serif;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: #F8F9FA;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.star-rating .star {
+  color: #E5E7EB;
+  cursor: pointer;
+}
+
+.star-rating .star.active {
+  color: #FFC107;
+}
+
+.btn-primary {
+  background-color: #2C5AA0;
+  color: white;
+  border-radius: 4px;
+  padding: 8px 16px;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #1d4588;
+}
+
+.btn-secondary {
+  border: 1px solid #2C5AA0;
+  color: #2C5AA0;
+  border-radius: 4px;
+  padding: 8px 16px;
+  transition: all 0.2s;
+  cursor: pointer;
+  background: white;
+}
+
+.btn-secondary:hover {
+  background-color: #e8efff;
+}
+
+.progress-bar {
+  height: 8px;
+  border-radius: 4px;
+  background-color: #E5E7EB;
+}
+
+.progress-value {
+  height: 100%;
+  border-radius: 4px;
+  background-color: #28A745;
+}
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.page-section {
+  margin-bottom: 48px;
+}
+
+.comment-item {
+  border-bottom: 1px solid #E5E7EB;
+  padding: 16px 0;
+}
+
+.stats-card {
+  padding: 20px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.nav-link:hover {
+  color: #2C5AA0;
+}
+
+.nav-active {
+  color: #2C5AA0;
+  font-weight: 600;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.tab-button.active {
+  background-color: #2C5AA0;
+  color: white;
+}
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+<svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="300" height="200" fill="url(#bg)"/>
+  <rect x="50" y="50" width="200" height="120" rx="8" fill="white" fill-opacity="0.9"/>
+  <rect x="60" y="60" width="180" height="100" fill="#F3F4F6"/>
+  <circle cx="100" cy="90" r="8" fill="#3B82F6"/>
+  <circle cx="120" cy="90" r="8" fill="#10B981"/>
+  <circle cx="140" cy="90" r="8" fill="#F59E0B"/>
+  <rect x="70" y="110" width="160" height="4" fill="#6B7280"/>
+  <rect x="70" y="120" width="120" height="4" fill="#9CA3AF"/>
+  <rect x="70" y="130" width="140" height="4" fill="#9CA3AF"/>
+  <text x="150" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">计算机科学导论</text>
+</svg>
+
+
+
+
+
+

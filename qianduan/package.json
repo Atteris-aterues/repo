@@ -1,0 +1,26 @@
+{
+  "name": "education-resource-platform",
+  "version": "1.0.0",
+  "description": "教育资源共享平台",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "serve": "node serve.js",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^2.7.14",
+    "vue-router": "^3.6.5",
+    "vuex": "^3.6.2",
+    "echarts": "^5.4.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue2": "^2.3.1",
+    "vite": "^5.0.0",
+    "tailwindcss": "^3.3.6",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32"
+  }
+}

@@ -1,0 +1,28 @@
+<svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="300" height="200" fill="url(#bg2)"/>
+  <rect x="50" y="50" width="200" height="120" rx="8" fill="white" fill-opacity="0.9"/>
+  <rect x="60" y="60" width="180" height="100" fill="#F3F4F6"/>
+  <!-- 树结构图 -->
+  <circle cx="150" cy="80" r="6" fill="#10B981"/>
+  <line x1="150" y1="86" x2="120" y2="110" stroke="#10B981" stroke-width="2"/>
+  <line x1="150" y1="86" x2="180" y2="110" stroke="#10B981" stroke-width="2"/>
+  <circle cx="120" cy="110" r="6" fill="#10B981"/>
+  <circle cx="180" cy="110" r="6" fill="#10B981"/>
+  <line x1="120" y1="116" x2="100" y2="140" stroke="#10B981" stroke-width="2"/>
+  <line x1="120" y1="116" x2="140" y2="140" stroke="#10B981" stroke-width="2"/>
+  <circle cx="100" cy="140" r="6" fill="#10B981"/>
+  <circle cx="140" cy="140" r="6" fill="#10B981"/>
+  <text x="150" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">数据结构与算法</text>
+</svg>
+
+
+
+
+
+

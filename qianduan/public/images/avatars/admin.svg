@@ -1,0 +1,19 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="adminBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#EF4444;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#DC2626;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="40" cy="40" r="40" fill="url(#adminBg)"/>
+  <circle cx="40" cy="30" r="12" fill="white"/>
+  <path d="M20 60C20 50 30 45 40 45C50 45 60 50 60 60" fill="white"/>
+  <path d="M35 20L40 15L45 20L40 25L35 20Z" fill="#FFC107"/>
+  <text x="40" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">管理员</text>
+</svg>
+
+
+
+
+
+
