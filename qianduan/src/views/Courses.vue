@@ -342,10 +342,21 @@ export default {
       event.target.src = '/images/avatars/teacher.svg'
     }
   },
-  created() {
-    // 如果没有选中的课程，默认选择第一个
-    if (!this.selectedCourse) {
-      this.$store.commit('SET_SELECTED_COURSE', this.$store.state.courses[0])
+  async created() {
+    try {
+      // 加载课程列表
+      await this.$store.dispatch('fetchCourses')
+      
+      // 如果没有选中的课程，默认选择第一个
+      if (!this.selectedCourse && this.$store.state.courses.length > 0) {
+        this.$store.commit('SET_SELECTED_COURSE', this.$store.state.courses[0])
+      }
+    } catch (error) {
+      console.error('加载课程失败:', error)
+      this.$store.commit('SET_ERROR', {
+        title: '加载失败',
+        message: '无法加载课程列表，请稍后重试'
+      })
     }
   }
 }

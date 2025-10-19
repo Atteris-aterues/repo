@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { authAPI } from '../api/auth'
+import { courseAPI } from '../api/course'
+import { resourceAPI } from '../api/resource'
+import { adminAPI } from '../api/admin'
 
 Vue.use(Vuex)
 
@@ -203,7 +207,24 @@ export default new Vuex.Store({
       userGrowth: 12.5,
       courseGrowth: 5.2,
       resourceGrowth: 18.3
-    }
+    },
+
+    // 我的课程
+    myCourses: [],
+
+    // 我的资源
+    myResources: [],
+
+    // 加载状态
+    loading: {
+      courses: false,
+      resources: false,
+      users: false,
+      statistics: false
+    },
+
+    // 错误状态
+    error: null
   },
   
   mutations: {
@@ -260,6 +281,51 @@ export default new Vuex.Store({
       if (index !== -1) {
         state.users.splice(index, 1, user)
       }
+    },
+
+    // 课程相关
+    SET_COURSES(state, courses) {
+      state.courses = courses
+    },
+
+    SET_MY_COURSES(state, courses) {
+      state.myCourses = courses
+    },
+
+    // 资源相关
+    SET_RESOURCES(state, resources) {
+      state.resources = resources
+    },
+
+    SET_MY_RESOURCES(state, resources) {
+      state.myResources = resources
+    },
+
+    // 管理员相关
+    SET_USERS(state, users) {
+      state.users = users
+    },
+
+    SET_PENDING_RESOURCES(state, resources) {
+      state.pendingResources = resources
+    },
+
+    SET_STATISTICS(state, statistics) {
+      state.statistics = statistics
+    },
+
+    // 加载状态
+    SET_LOADING(state, { key, value }) {
+      state.loading[key] = value
+    },
+
+    // 错误状态
+    SET_ERROR(state, error) {
+      state.error = error
+    },
+
+    CLEAR_ERROR(state) {
+      state.error = null
     }
   },
   
@@ -267,21 +333,10 @@ export default new Vuex.Store({
     // 认证相关
     async login({ commit }, credentials) {
       try {
-        // 模拟API调用
-        const mockUsers = {
-          'S20201234': { id: 'S20201234', name: '张明同学', role: 'student', college: '计算机学院', grade: '2022级' },
-          'T20200001': { id: 'T20200001', name: '李教授', role: 'teacher', college: '计算机学院' },
-          'admin': { id: 'admin', name: '管理员', role: 'admin', college: '系统管理' }
-        }
-        
-        const user = mockUsers[credentials.username]
-        if (user && credentials.password === '123456') {
-          const token = 'mock-token-' + Date.now()
-          commit('SET_AUTH', { user, token })
-          return user
-        } else {
-          throw new Error('用户名或密码错误')
-        }
+        const response = await authAPI.login(credentials)
+        const { user, token } = response.data
+        commit('SET_AUTH', { user, token })
+        return user
       } catch (error) {
         throw error
       }
@@ -289,17 +344,10 @@ export default new Vuex.Store({
     
     async register({ commit }, userData) {
       try {
-        // 模拟注册
-        const newUser = {
-          id: userData.studentId,
-          name: userData.username,
-          role: userData.userType,
-          college: '计算机学院',
-          grade: '2023级'
-        }
-        const token = 'mock-token-' + Date.now()
-        commit('SET_AUTH', { user: newUser, token })
-        return newUser
+        const response = await authAPI.register(userData)
+        const { user, token } = response.data
+        commit('SET_AUTH', { user, token })
+        return user
       } catch (error) {
         throw error
       }
@@ -339,6 +387,147 @@ export default new Vuex.Store({
     
     updateUser({ commit }, user) {
       commit('UPDATE_USER', user)
+    },
+
+    // 课程相关
+    async fetchCourses({ commit }, params = {}) {
+      try {
+        commit('SET_LOADING', { key: 'courses', value: true })
+        const response = await courseAPI.getCourses(params)
+        commit('SET_COURSES', response.data)
+        return response.data
+      } catch (error) {
+        throw error
+      } finally {
+        commit('SET_LOADING', { key: 'courses', value: false })
+      }
+    },
+
+    async fetchCourseById({ commit }, courseId) {
+      try {
+        const response = await courseAPI.getCourseById(courseId)
+        return response.data
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async searchCourses({ commit }, { keyword, filters }) {
+      try {
+        const response = await courseAPI.searchCourses(keyword, filters)
+        return response.data
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async fetchMyCourses({ commit }) {
+      try {
+        const response = await courseAPI.getMyCourses()
+        commit('SET_MY_COURSES', response.data)
+        return response.data
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async enrollCourse({ commit }, courseId) {
+      try {
+        await courseAPI.enrollCourse(courseId)
+        // 重新获取我的课程列表
+        await this.dispatch('fetchMyCourses')
+      } catch (error) {
+        throw error
+      }
+    },
+
+    // 资源相关
+    async fetchResources({ commit }, params = {}) {
+      try {
+        const response = await resourceAPI.getResources(params)
+        commit('SET_RESOURCES', response.data)
+        return response.data
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async fetchResourceById({ commit }, resourceId) {
+      try {
+        const response = await resourceAPI.getResourceById(resourceId)
+        return response.data
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async searchResources({ commit }, { keyword, filters }) {
+      try {
+        const response = await resourceAPI.searchResources(keyword, filters)
+        return response.data
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async uploadResource({ commit }, resourceData) {
+      try {
+        const response = await resourceAPI.uploadResource(resourceData)
+        return response.data
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async fetchMyResources({ commit }) {
+      try {
+        const response = await resourceAPI.getMyResources()
+        commit('SET_MY_RESOURCES', response.data)
+        return response.data
+      } catch (error) {
+        throw error
+      }
+    },
+
+    // 管理员相关
+    async fetchUsers({ commit }, params = {}) {
+      try {
+        const response = await adminAPI.getUsers(params)
+        commit('SET_USERS', response.data)
+        return response.data
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async fetchPendingResources({ commit }, params = {}) {
+      try {
+        const response = await adminAPI.getPendingResources(params)
+        commit('SET_PENDING_RESOURCES', response.data)
+        return response.data
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async reviewResource({ commit }, { resourceId, action, comment }) {
+      try {
+        await adminAPI.reviewResource(resourceId, action, comment)
+        // 重新获取待审核资源列表
+        await this.dispatch('fetchPendingResources')
+      } catch (error) {
+        throw error
+      }
+    },
+
+    async fetchStatistics({ commit }) {
+      try {
+        const response = await adminAPI.getStatistics()
+        commit('SET_STATISTICS', response.data)
+        return response.data
+      } catch (error) {
+        throw error
+      }
     }
   },
   
