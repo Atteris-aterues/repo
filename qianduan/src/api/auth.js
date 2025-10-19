@@ -40,5 +40,22 @@ export const authAPI = {
   // 重置密码
   resetPassword(data) {
     return api.post('/auth/reset-password', data)
+  },
+
+  // 更新用户信息
+  updateProfile(userData) {
+    return api.put('/auth/profile', userData)
+  },
+
+  // 上传用户头像
+  uploadAvatar(file) {
+    const formData = new FormData()
+    formData.append('avatar', file)
+    return api.post('/auth/avatar', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
   }
 }
+

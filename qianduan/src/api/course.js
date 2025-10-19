@@ -54,3 +54,4 @@ export const courseAPI = {
     return api.delete(`/courses/${courseId}/enroll`)
   }
 }
+

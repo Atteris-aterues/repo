@@ -10,10 +10,15 @@
 - ✅ 实现了全局错误处理
 
 ### 2. API 接口模块
-- ✅ `src/api/auth.js` - 用户认证相关接口
-- ✅ `src/api/course.js` - 课程管理相关接口  
-- ✅ `src/api/resource.js` - 资源管理相关接口
-- ✅ `src/api/admin.js` - 管理员功能相关接口
+- ✅ `src/api/auth.js` - 用户认证相关接口（登录、注册、更新资料、上传头像等）
+- ✅ `src/api/course.js` - 课程管理相关接口（课程列表、详情、搜索、选课、评价等）
+- ✅ `src/api/resource.js` - 资源管理相关接口（资源列表、上传、下载、评价、收藏等）
+- ✅ `src/api/admin.js` - 管理员功能相关接口（用户管理、资源审核、统计数据、系统日志等）
+- ✅ `src/api/profile.js` - 个人资料相关接口（个人资料管理、我的课程、我的资源、收藏等）
+- ✅ `src/api/upload.js` - 文件上传相关接口（通用文件上传、上传进度、文件管理等）
+- ✅ `src/api/notification.js` - 通知相关接口（通知列表、标记已读、删除通知等）
+- ✅ `src/api/search.js` - 搜索相关接口（全局搜索、搜索建议、分类搜索等）
+- ✅ `src/api/stats.js` - 统计相关接口（个人统计、课程统计、资源统计等）
 
 ### 3. Vuex Store 更新
 - ✅ 集成了所有 API 接口到 Vuex actions
@@ -158,3 +163,4 @@ const courses = await courseAPI.getCourses({
 3. 添加请求重试机制
 4. 优化加载状态显示
 5. 添加数据验证
+

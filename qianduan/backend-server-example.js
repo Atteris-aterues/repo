@@ -269,10 +269,145 @@ app.get('/api/admin/statistics', authenticateToken, (req, res) => {
   })
 })
 
+// 个人资料相关路由
+app.get('/api/profile', authenticateToken, (req, res) => {
+  const user = users.find(u => u.id === req.user.id)
+  if (!user) {
+    return res.status(404).json({ code: 404, message: '用户不存在' })
+  }
+
+  res.json({
+    code: 200,
+    message: '获取个人资料成功',
+    data: {
+      id: user.id,
+      name: user.name,
+      email: user.email || 'user@example.com',
+      phone: user.phone || '',
+      college: user.college,
+      grade: user.grade,
+      avatar: user.avatar || '/images/avatars/default.svg',
+      bio: user.bio || '',
+      interests: user.interests || []
+    }
+  })
+})
+
+app.put('/api/profile', authenticateToken, (req, res) => {
+  const userIndex = users.findIndex(u => u.id === req.user.id)
+  if (userIndex === -1) {
+    return res.status(404).json({ code: 404, message: '用户不存在' })
+  }
+
+  // 更新用户信息
+  users[userIndex] = { ...users[userIndex], ...req.body }
+
+  res.json({
+    code: 200,
+    message: '更新个人资料成功',
+    data: users[userIndex]
+  })
+})
+
+// 文件上传相关路由
+app.post('/api/upload', authenticateToken, (req, res) => {
+  // 模拟文件上传
+  const fileId = 'file_' + Date.now()
+  res.json({
+    code: 200,
+    message: '文件上传成功',
+    data: {
+      fileId,
+      url: `/uploads/${fileId}`,
+      filename: req.body.filename || 'uploaded_file'
+    }
+  })
+})
+
+// 通知相关路由
+app.get('/api/notifications', authenticateToken, (req, res) => {
+  const notifications = [
+    {
+      id: 1,
+      title: '资源审核通过',
+      content: '您上传的"数据结构笔记"已通过审核',
+      type: 'resource_approved',
+      read: false,
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: 2,
+      title: '新课程推荐',
+      content: '根据您的兴趣，为您推荐了"算法设计"课程',
+      type: 'course_recommendation',
+      read: true,
+      createdAt: new Date(Date.now() - 86400000).toISOString()
+    }
+  ]
+
+  res.json({
+    code: 200,
+    message: '获取通知列表成功',
+    data: notifications
+  })
+})
+
+// 搜索相关路由
+app.get('/api/search', (req, res) => {
+  const { keyword, type = 'all' } = req.query
+  
+  let results = []
+  
+  if (type === 'all' || type === 'courses') {
+    results = courses.filter(course => 
+      course.title.includes(keyword) || 
+      course.instructor.includes(keyword)
+    ).map(course => ({ ...course, type: 'course' }))
+  }
+
+  res.json({
+    code: 200,
+    message: '搜索成功',
+    data: {
+      keyword,
+      results,
+      total: results.length
+    }
+  })
+})
+
+// 统计相关路由
+app.get('/api/stats/personal', authenticateToken, (req, res) => {
+  const stats = {
+    totalCourses: 5,
+    totalResources: 12,
+    totalDownloads: 156,
+    totalFavorites: 8,
+    contributionScore: 85
+  }
+
+  res.json({
+    code: 200,
+    message: '获取个人统计成功',
+    data: stats
+  })
+})
+
 // 启动服务器
 app.listen(PORT, () => {
   console.log(`后端服务器运行在 http://localhost:${PORT}`)
   console.log(`API基础URL: http://localhost:${PORT}/api`)
+  console.log('\n可用的API接口:')
+  console.log('- POST /api/auth/login - 用户登录')
+  console.log('- POST /api/auth/register - 用户注册')
+  console.log('- GET /api/auth/me - 获取当前用户信息')
+  console.log('- GET /api/courses - 获取课程列表')
+  console.log('- GET /api/resources - 获取资源列表')
+  console.log('- GET /api/profile - 获取个人资料')
+  console.log('- GET /api/notifications - 获取通知列表')
+  console.log('- GET /api/search - 全局搜索')
+  console.log('- GET /api/stats/personal - 个人统计')
 })
 
 module.exports = app
+

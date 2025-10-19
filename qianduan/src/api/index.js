@@ -46,3 +46,15 @@ api.interceptors.response.use(
 )
 
 export default api
+
+// 导出所有API模块
+export { authAPI } from './auth'
+export { courseAPI } from './course'
+export { resourceAPI } from './resource'
+export { adminAPI } from './admin'
+export { profileAPI } from './profile'
+export { uploadAPI } from './upload'
+export { notificationAPI } from './notification'
+export { searchAPI } from './search'
+export { statsAPI } from './stats'
+

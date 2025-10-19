@@ -71,3 +71,4 @@ export const resourceAPI = {
     return api.get(`/resources/${resourceId}/stats`)
   }
 }
+
